@@ -5,11 +5,20 @@
 - name: About
   url: "about"
   
-- name: Fables
-  url: "tag/Fables"
+- name: Objective-C
+  url: "tag/Objective-C"
   
-- name: Speeches
-  url: "tag/Speeches"
+- name: Java-Web
+  url: "tag/Java-Web"
+  
+# - name: Node.js
+#  url: "tag/Node.js"
 
-- name: Fiction
-  url: "tag/Fiction"
+- name: Linux
+  url: "tag/Linux"
+  
+- name: Git
+  url: "tag/Git"
+  
+- name: Jekyll
+  url: "tag/Jekyll"

@@ -1,12 +1,24 @@
 #标签配置
-- name: Fables
-  cover: assets/images/cover2.jpg
-  description: A series of short stories that make you think.
-  
-- name: Speeches
+- name: Objective-C
   cover: assets/images/cover7.jpg
-  description: Some of the greatest words ever spoken.
+  description: Objective-C
 
-- name: Fiction
-  cover: assets/images/cover1.jpg
-  description: A 6-post collection
+- name: Java-Web
+  cover: assets/images/cover7.jpg
+  description: Java-Web
+
+- name: Node.js
+  cover: assets/images/cover7.jpg
+  description: Node.js
+
+- name: Linux
+  cover: assets/images/cover7.jpg
+  description: Linux
+
+- name: Git
+  cover: assets/images/cover7.jpg
+  description: Git、GitLab、GitLab-CI
+  
+- name: Jekyll
+  cover: assets/images/cover6.jpg
+  description: Jekyll

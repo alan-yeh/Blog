@@ -21,7 +21,7 @@ permalink: blog/:title
 # permalink: /author/:username
 # permalink: /tag/:tag
 # 博客的语言环境
-language: 'en-uk'
+language: 'zh-cn'
 # 指定端口号，本地使用jekyll s的时候，可以使用http://localhost:port来访问
 port: 4000
 # 网站生成的目录路径，此路径应该在.gitignore上被勿略
@@ -31,44 +31,44 @@ destination: _site
 # 网站信息
 ########################################################
 # 首页博客标题
-name: 'Finding The Way Home'
+name: "PoiSon's Blog"
 # 首页图片
 cover: 'assets/images/cover1.jpg'
 # 博客Logo
 logo: 'assets/images/logo.png'
 # 首页博客副标题
-description: "A beautiful narrative written with the world's most elegant publishing platform. The story begins here."
+description: "写写代码，想想东西，程序员的世界可以就这么简单。"
 # 博客访问地址
-address: 'http://pasper.yerl.cn'
+address: 'http://yerl.cn'
 # address: 'http://127.0.0.1:4000'
 
 ########################################################
 # 作者信息
 ########################################################
 # 作者名
-author: 'Casper McFadden'
+author: PoiSon
 # 昵称
-nickname: casper
+nickname: PoiSon
 # 作者简介
-bio: 'A paranormal expert and his daughter bunk in an abandoned house populated by 3 mischievous ghosts and one friendly one.'
+bio: '简单技术控，喜欢接触各类技术'
 # 作者居住地
-location: 'Maine, USA'
+location: 'GZ, China'
 # 作者主页
 url: 'http://yerl.cn'
 # 头像
-image: 'assets/images/casper.png'
+image: 'assets/images/avatar.jpg'
 
 ########################################################
 # 评论系统
 ########################################################
 # comments_duoshuo: pasper # 多说
-comments_disqus: pasper # disqus
+comments_disqus: yerll # disqus
 
 ########################################################
 # 网站统计分析
 ########################################################
 #analytics_google: UA-xxxxxxxx-x
-analytics_baidu: '//hm.baidu.com/hm.js?0705c3d796ab210d7657f87eba730be2'
+analytics_baidu: '//hm.baidu.com/hm.js?32c2c629fa6b497aa2a25454093d6dd9'
 
 # Additional settings available on the front-matter
 # Site logo in the index.html (as in demo.ghost.io)

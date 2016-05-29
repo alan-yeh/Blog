@@ -5,8 +5,8 @@ cover: 'assets/images/cover4.jpg'
 current: about
 ---
 
-This is a demo blog for Ghost, it contains dummy content which allows you to click around and see what a Ghost blog running the default theme looks like.
+　　Hi，我是PoiSon，叶瑞龙，小程序员。
 
-We use this for testing and for reference!
+　　喜欢宅在家里写写代码，也喜欢陪着女朋友到处跑。喜欢安静的生活。
 
-If you'd like to set up your own blog, head on over to [https://ghost.org](https://ghost.org) and sign up.
+　　一些[开源项目](https://github.com/Poi-Son)。
