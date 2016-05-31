@@ -82,39 +82,43 @@ doSomethingAsync(function(result, error){
 
 ```objective-c
 //网络访问与业务分离
-- (void)get:(NSString *)getPath withParam:(id)param andResolve:(PSResolve)resolve{
-    [client getPath:@"xxx"
-         parameters:param
-            success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                resolve(responseObject);
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                resolve(error);
-            }];
+- (PSPromise *)get:(NSString *)getPath withParam:(id)param{
+    return PSPromiseWithResolve(^(PSResolve resolve){
+        [client getPath:@"xxx"
+             parameters:param
+                success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    resolve(responseObject);
+              } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    resolve(error);
+         }];
+    });
 }
 //Json序列化与业务分离
-- (void)parseJson:(id)responseObject andResolve:(PSResolve)resolve{
-    NSError *error;
-    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:&error];
-    if (error) {
-        resolve(error);
-    }else{
-        resolve(json);
-    }
+- (PSPromise *)parseJson:(id)responseObject{
+    return PSPromiseWith(^id{
+        NSError *error;
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:&error];
+        if (error) {
+            return error;
+        }else{
+            return json;
+        }
+    });
 }
 
 - (PSPromise *)getContacts{
-    return PSPromiseWithResolve(^(PSResolve resolve) {
+    return PSPromiseWith(^{
         //第一次访问网络
-        [self get:@"xxx" withParam:params andResolve:resolve];
-    }). thenPromise(^id(id responseObject, PSResolve resolve){
+        return [self get:@"xxx" withParam:params];
+    }).then(^(id responseObject){
         //处理Json序列化
-        [self parseJson:responseObject andResolve:resolve];
-    }).thenPromise(^(NSDictionary *json, PSResolve resolve){
+        return [self parseJson:responseObject];
+    }).then(^(NSDictionary *json){
         //第二次访问网络
-        [self get:@"yyy" withParam:params andResolve:resolve];
-    }). thenPromise(^(id responseObject, PSResolve resolve){
+        return [self get:@"yyy" withParam:params];
+    }).then(^(id responseObject){
         //再次处理Json序列化
-        [self parseJson:responseObject andResolve:resolve];
+        return [self parseJson:responseObject];
     }).then(^(NSDictionary* result){
         //处理业务正确性
         if ([result[@"status"] intValue] == 200){
@@ -146,25 +150,42 @@ doSomethingAsync(function(result, error){
 ###CommonJS Promise/A
 ---
 　　PSPromise支持标准的CommonJS Promise/A语法。由于语言的特殊，对其中部份Api进行小量改造。
-####构造函数
+#### 构造函数
 　　由于PSPromise使用链式调用语法，抛弃OC的传统构造函数，使用C构造PSPromise对象更有利于书写方便。PSPromise有以下构造函数：
 
-* PSPromise *PSPromiseWithResolve(void (^)(PSResolve resolve))
+##### `PSPromise *PSPromiseWithResolve(void (^)(PSResolve resolve))`
 
 ```objective-c
 PSPromise *promise = PSPromiseWithResolve(^(PSResolve resolve){
     resolve(@"aaa");
 });
 ```
+　　PSPromiseWithResolve提供了一个回调PSResolve，使用`resolve(value)`返回结果。
 
-* PSPromise *PSPromiseWithBlock(id block)
+##### `PSPromise *PSPromiseWith(id value)`
 
 ```objective-c
-PSPromise *promise = PSPromiseWithBlock(^{
+PSPromise *promise = PSPromiseWith(^{
     return @"aaa";
 });
 ```
+　　PSPromiseWith创建Promise对象，参数value可以为以下类型：
 
+- block，创建一个Pending状态的Promise并同步执行block
+- Promise，直接返回该Promise对象
+- 数组，返回Promise.all封装的Promise
+- NSError，返回一个Rejected状态的Promise
+- 其它对象（包括nil），返回一个Fulfilled状态的Promise
+
+##### `PSPromise *PSPromiseAsyncWith(id value)`
+
+```objective-c
+PSPromise *promise = PSPromiseAsyncWith(^{
+    //异步执行
+    return [[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://www.baidu.com"] encoding:NSUTF8StringEncoding error:nil];
+});
+```
+　　PSPromiseAsyncWith创建异步执行的Promise
 ####then
 　　then语法用于处理正确(Fulfilled)的Promise结果。在CommonJS Promise/A的语法中，then应该支持2个回调函数，第一个回调函数处理Fulfilled的结果，第二个回调函数处理Rejected的结果。为了减少其书写上的复杂性，PSPromise的then语法仅支持1个block，用于处理正确(Fulfilled)结果。
 
@@ -221,13 +242,13 @@ PSPromiseWithResolve:(^(PSResolve resolve){
 　　因此，all语法可以理解为判断语句『且』，当所有条件都成功时它才成功，当有一个条件失败时，它就是失败。
 
 ```objective-c
-PSPromise *p1 = PSPromiseWithBlock(^{
+PSPromise *p1 = PSPromiseWith(^{
     return @"aa";
 });
-PSPromise *p2 = PSPromiseWithBlock(^{
+PSPromise *p2 = PSPromiseWith(^{
     @throw error;
 });
-PSPromise *p3 = PSPromiseWithBlock(^{
+PSPromise *p3 = PSPromiseWith(^{
     return @"cc";
 });
 
@@ -239,13 +260,13 @@ PSPromise *pAll = PSPromise.all(@[p1, p2, p3]).then(^(NSArray *result){
     
 /************************************************************/
 
-PSPromise *p1 = PSPromiseWithBlock(^{
+PSPromise *p1 = PSPromiseWith(^{
     return @"aa";
 });
-PSPromise *p2 = PSPromiseWithBlock(^{
+PSPromise *p2 = PSPromiseWith(^{
     return @"bb";
 });
-PSPromise *p3 = PSPromiseWithBlock(^{
+PSPromise *p3 = PSPromiseWith(^{
     return @"cc";
 });
 
@@ -265,10 +286,10 @@ PSPromise *pAll = PSPromise.all(@[p1, p2, p3]).then(^(NSArray *result){
 　　因此，race语法可以理解为判断语句的『或』，当所有条件都失败时它才失败，当其中一个条件成功时，它成功。
 
 ```objective-c
-PSPromise *p1 = PSPromiseWithBlock(^{
+PSPromise *p1 = PSPromiseWith(^{
     return @"aa";
 });
-PSPromise *p2 = PSPromiseWithBlock(^{
+PSPromise *p2 = PSPromiseWith(^{
     @throw error;
 });
 PSPromise *p3 = PSPromiseWithResolve:(^(PSResolve resolve){
@@ -283,13 +304,13 @@ PSPromise *pRace = PSPromise.race(@[p1, p2, p3]).then(^(NSString *result){
     
 /************************************************************/
 
-PSPromise *p1 = PSPromiseWithBlock(^{
+PSPromise *p1 = PSPromiseWith(^{
     @throw error;
 });
 PSPromise *p2 = PSPromiseWithResolve:(^(PSResolve resolve){
     resolve(error);
 });
-PSPromise *p3 = PSPromiseWithBlock(^{
+PSPromise *p3 = PSPromiseWith(^{
     return error;
 });
 
