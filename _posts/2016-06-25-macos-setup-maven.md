@@ -5,9 +5,11 @@ title: Mac OS X下Maven的安装与配置
 tags: Java-Web
 ---
 
-- 下载[Maven](https://maven.apache.org/download.cgi)，选择下载`Binary zip archive`。下载完了之后，解压到一个目录，比如`Users/yerl/maven`
+## 下载Maven
+到[Maven官网](https://maven.apache.org/download.cgi)下载安装包，选择下载`Binary zip archive`。下载完了之后，解压到一个目录，比如`Users/yerl/maven`。
 
-- 设置`Maven classpath`。打开终端，输入以下命令，编辑bash_profile
+## 设置`Maven`环境变量
+打开终端，输入以下命令，编辑bash_profile
 
 ```bash
 $ nano ~/.bash_profile
@@ -20,13 +22,13 @@ export M2_HOME=/Users/yerl/maven
 export PATH=$PATH:$M2_HOME/bin
 ```
 
-- 输入命令使`bash_profile`生效
+输入命令使`bash_profile`生效
 
 ```bash
 $ source ~/.bash_profile
 ```
 
-- 查看`Maven`是否安装成功
+## 查看`Maven`是否安装成功
 
 ```bash
 $ mvn -v
