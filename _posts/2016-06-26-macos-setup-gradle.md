@@ -1,6 +1,6 @@
 ---
 layout: post
-date: 2016-06-25
+date: 2016-06-26
 title: Mac OS X下Gradle的安装与配置
 tags: Java-Web
 ---
