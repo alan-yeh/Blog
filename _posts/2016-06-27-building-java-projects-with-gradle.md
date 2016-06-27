@@ -7,7 +7,7 @@ tags: Java-Web
 　　这篇博客会带你一起来使用Gradle构建Java工程。
 
 ### 创建一个Java工程
-　　首先，新建一个Java工程，以便我们尝示如何使用Gradle构建来构建它。为了把我们的精力更专注于如何使用Gralde，我们将这个工程建得非常简单。
+　　首先，新建一个Java工程，用于演示如何使用Gradle构建来构建它。为了让我们的精力更专注于如何使用Gralde，我们将这个工程建得非常简单。
 
 　　创建一个工程根目录，然后在`Terminal`打开它。
 
@@ -53,7 +53,7 @@ public class Greeter {
 ### 安装Gradle到你的工程
 　　[上一篇博客](/blog/macos-setup-gradle)介绍到如何在Mac下配置Gradle环境。如果你已经完成配置Gradle环境了，那可以接着做以下的步骤。
 
-　　回到项目根目录，在你的`Terminal`输入`gradle`。如果以上步骤都没有错的话，你会得到以下信息。
+　　回到项目根目录，在`Terminal`输入`gradle`。如果以上步骤都没有错的话，你会得到以下信息。
 
 ```bash
 $ gradle
@@ -119,7 +119,7 @@ Total time: 1.122 secs
 
 This build could be faster, please consider using the Gradle Daemon: https://docs.gradle.org/2.14/userguide/gradle_daemon.html
 ```
-　　以上列出来的任务都是可用的。但是，使用`gradle.build`可以使任务变得更有用。可用任务列表会随着你添加插件到`build.gradle`文件而变得更多。
+　　以上列出来的任务都是可用的。但是，使用`gradle.build`可以使任务变得更有用处。可用任务列表会随着你添加插件到`build.gradle`文件而变得更多。
 
 ### Build Java code
 　　在项目根目下，创建一个最简单的`build.gradle`文件，文件只有以下一行内容：
@@ -127,7 +127,7 @@ This build could be faster, please consider using the Gradle Daemon: https://doc
 ```bash
 apply plugin: 'java'
 ```
-　　这简单的一行配置为工程带来很大的改变。再运行一次`gradle tasks`命令，可以看到任务列表多出了很多项，包括`Build`、`JavaDoc`、`tests`等。
+　　这简单的一行配置为工程带来很大的改变。再运行一次`gradle tasks`命令，可以看到任务列表多出了很多项，包括`build`、`javadoc`等。
 
 　　你会经常使用到`gradle build`。这项任务会编译、测试，并且会将代码组装成JAR文件。
 
