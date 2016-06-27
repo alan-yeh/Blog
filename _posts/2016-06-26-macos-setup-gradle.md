@@ -8,7 +8,7 @@ tags: Java-Web
 ## 下载Gradle
 到[Gradle官网](http://gradle.org/download)下载安装包，选择下载`Binary only distribution`。下载完了之后，解压到一个目录，比如`Users/yerl/gradle`。
 
-## 设置`Gradle`环境变量
+## 设置环境变量
 打开终端，输入以下命令，编辑bash_profile
 
 ```bash
@@ -28,7 +28,7 @@ export PATH=$PATH:$GRADLE_HOME/bin
 $ source ~/.bash_profile
 ```
 
-## 查看`Gradle`是否安装成功
+## 查看是否安装成功
 
 ```bash
 $ gradle -version
