@@ -51,7 +51,7 @@ public class Greeter {
 ```
 
 ### 安装Gradle到你的工程
-　　[上一篇博客](/blog/macos-setup-gradle)介绍到如何在Mac下配置Gradle环境。如果你已经完成配置Gradle环境了，那可以接着做以下的步骤。
+　　根据[上一篇博客](/blog/macos-setup-gradle)配置Gradle环境。如果你已经完成配置环境了，那可以接着做以下的步骤。
 
 　　回到项目根目录，在`Terminal`输入`gradle`。如果以上步骤都没有错的话，你会得到以下信息。
 
