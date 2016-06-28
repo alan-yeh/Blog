@@ -7,7 +7,7 @@ tags: Java-Web
 　　这篇博客会带你一起来使用Gradle构建Java工程。
 
 ### 创建一个Java工程
-　　首先，新建一个Java工程，用于演示如何使用Gradle构建来构建它。为了让我们的精力更专注于如何使用Gralde，我们将这个工程建得非常简单。
+　　首先，新建一个Java工程，用于演示如何使用Gradle来构建它。为了让我们的精力更专注于如何使用Gralde，我们将这个工程建得非常简单。
 
 　　创建一个工程根目录，然后在`Terminal`打开它。
 
@@ -15,7 +15,7 @@ tags: Java-Web
 $ mkdir gs-gradle
 $ cd gs-gradle
 ```
-　　使用命令`mkdir -p src/main/java/hello`创建工程结构。你会得到以下的目录。
+　　使用命令`mkdir -p src/main/java/hello`创建工程目录结构。你会得到以下的目录。
 
 ```
 └── src
