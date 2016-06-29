@@ -234,7 +234,7 @@ public class HelloWorld {
 </project>
 ```
 
-> 注意： 这个**pom.xml**文件使用着[Maven Shade Plugin](http://maven.apache.org/plugins/maven-shade-plugin/)来生成可执行的JAR文件。这篇博客我们更关注如何入门Maven，而不是怎么来使用特定的插件。
+> 注意： 这个**pom.xml**文件使用[Maven Shade Plugin](http://maven.apache.org/plugins/maven-shade-plugin/)来生成可执行的JAR文件。这篇博客我们更关注如何入门Maven，而不是怎么来使用特定的插件。
 
 ### 总结
 　　恭喜你，你现在已经可以使用Maven来简单、高效地构建Java项目了。
