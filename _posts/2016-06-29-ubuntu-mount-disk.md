@@ -1,6 +1,6 @@
 ---
 layout: post
-date: 2016-04-25
+date: 2016-06-29
 title: Ubuntu自动挂载硬盘分区
 tags: Linux
 ---
