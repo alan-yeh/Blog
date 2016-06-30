@@ -324,7 +324,7 @@ dependencies {
 - `xxxx-xxxx-sources.jar.asc`
 
 ### 上传库
-　　生成好库之后，就需要将它上传到Sonatype Nexus里去了。上传的任务非常简单，运行Gradle uploadArchives任务就可以了。
+　　生成好库之后，就需要将它上传到Sonatype Nexus里去了。上传非常简单，运行Gradle uploadArchives任务就可以了。
 
 ![](../assets/blog/publish-library-to-maven-central-repository/run-upload-task.png)
 
@@ -350,14 +350,14 @@ dependencies {
 
 ![](../assets/blog/publish-library-to-maven-central-repository/close-staging-repositories.png)
 
-　　几秒之后，*Refresh*。再打开页面。如果你的状态下图所示，那么恭喜你，一切顺利。不然，根据提示，修改你上传的包。
+　　几秒之后，*Refresh*。再打开页面。如果你的状态下图所示，那么恭喜你，一切顺利。不然，根据错误提示，修改你上传的包。
 
 ![](../assets/blog/publish-library-to-maven-central-repository/staging-repositories-status.png)
 
 　　现在，你的库已经可以发布了，点击*Release*即可。
 
 ### 回复JIRA
-　　由于你是第一次发布库，因此，你还需要回去JIRA，回复审批人，告诉他，你已经准备好发布你的库了，请将库同步到Maven Central Repository里。
+　　由于是第一次发布库，因此，还需要回到JIRA的Issue，回复审批人，告诉他，你已经准备好发布你的库了，请将库同步到Maven Central Repository里。
 
 ![](../assets/blog/publish-library-to-maven-central-repository/reply-jira.png)
 
