@@ -2,7 +2,7 @@
 layout: post
 date: 2016-06-30
 title: 发布库到Maven Central Repository
-tags: Linux
+tags: Java-Web
 ---
 　　现在Maven几乎成了Java事实上的包管理工具了，Gradle作为后起之秀，也是建立在Maven现有的大量仓库资源之上。使用Maven Central Repository可以很方便地解决第三方库依赖问题。那么，如何将自己开发的包也发布到Maven Central Repository上去呢？
 
@@ -23,7 +23,7 @@ tags: Linux
 
 **特别注意这几项**
 
-- Group Id：填写你的域名，如果没有域名可以用GitHub的域名(username.github.com)。
+- Group Id：填写你的域名，如果没有域名可以用GitHub的域名(com.github.username)。
 - Project URL：GitHub的项目地址
 - SCM url：GitHub项目的*git clone*地址
 
@@ -40,10 +40,10 @@ Configuration has been prepared, now you can:
 please comment on this ticket when you promoted your first release, thanks
 ```
 
-> 由于是第一次提交，所以在完成后面的步骤后，还要回来回一下JIRA的Issue。
+> 由于是第一次提交，所以在完成后面的步骤后，需要回来回复一下JIRA的Issue。
 
 ## 上传库
-　　这里以安卓为例子。
+　　这里以安卓库为例子。
 
 ### GnuPG
 
@@ -370,3 +370,5 @@ dependencies {
 
 ### 发布新的包
 　　与更新一样的步骤，不需要完全走完所有流程。
+
+> 以上内容不是特别完整，可以在[这里](http://central.sonatype.org/pages/producers.html)查看上传的完整流程。
