@@ -76,31 +76,9 @@ gpg --keyserver hkp://pool.sks-keyservers.net --send-keys E2F25563
 
 `upload.gradle`
 
-```
+```ruby
 apply plugin: 'maven'
 apply plugin: 'signing'
-
-def isReleaseBuild() {
-    return POM_VERSION.contains("SNAPSHOT") == false
-}
-
-def getReleaseRepositoryUrl() {
-    return hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL
-            : "https://oss.sonatype.org/service/local/staging/deploy/maven2"
-}
-
-def getSnapshotRepositoryUrl() {
-    return hasProperty('SNAPSHOT_REPOSITORY_URL') ? SNAPSHOT_REPOSITORY_URL
-            : "https://oss.sonatype.org/content/repositories/snapshots"
-}
-
-def getRepositoryUsername() {
-    return hasProperty('NEXUS_USERNAME') ? NEXUS_USERNAME : ""
-}
-
-def getRepositoryPassword() {
-    return hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : ""
-}
 
 afterEvaluate { project ->
     uploadArchives {
@@ -108,11 +86,11 @@ afterEvaluate { project ->
             mavenDeployer {
                 beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-                repository(url: getReleaseRepositoryUrl()) {
-                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+                repository(url: RELEASE_REPOSITORY_URL) {
+                    authentication(userName: NEXUS_USERNAME, password: NEXUS_PASSWORD)
                 }
-                snapshotRepository(url: getSnapshotRepositoryUrl()) {
-                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+                snapshotRepository(url: SNAPSHOT_REPOSITORY_URL) {
+                    authentication(userName: NEXUS_USERNAME, password: NEXUS_PASSWORD)
                 }
 
                 pom.project {
@@ -120,7 +98,6 @@ afterEvaluate { project ->
                     artifactId POM_ARTIFACT_ID
                     version POM_VERSION
                     packaging POM_PACKAGING
-
 
                     name SONATYPE_NAME
                     description SONATYPE_DESCRIPTION
@@ -137,7 +114,6 @@ afterEvaluate { project ->
                         developer {
                             name SONATYPE_DEVELOPER_NAME
                             email SONATYPE_DEVELOPER_EMAIL
-                            organizationUrl SONATYPE_DEVELOPER_ORGANIZATION_URL
                         }
                     }
 
@@ -166,7 +142,6 @@ afterEvaluate { project ->
     }
 
     signing {
-        //required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
         sign configurations.archives
     }
 
@@ -193,7 +168,7 @@ afterEvaluate { project ->
 ```
 　　这段Gradle脚本用于生成Sonatype Nexus要求的所有文件，包括
 
-- `xxxx-xxxx.jar` 项目生成的库
+- `xxxx-xxxx.jar` 库的打包文件。Android的库文件后缀名为aar。
 - `xxxx-xxxx.jar.asc` PGP签名
 - `xxxx-xxxx-javadoc.jar` 项目生成的document
 - `xxxx-xxxx-javadoc.jar.asc` PGP签名
@@ -208,11 +183,10 @@ afterEvaluate { project ->
 
 ```ruby
 # POM属性设置
-POM_VERSION=1.0.2
-POM_VERSION_CODE=102
+POM_VERSION=1.0.1
 POM_GROUP_ID=cn.yerl
 POM_ARTIFACT_ID=android-promise
-POM_PACKAGING=jar
+POM_PACKAGING=aar
 
 # sonatype.org要求的相关属性
 #-> Project Name, Description and URL
@@ -227,7 +201,6 @@ SONATYPE_LICENCE_URL=https://www.apache.org/licenses/LICENSE-2.0.txt
 #-> Developer Information
 SONATYPE_DEVELOPER_NAME=yerl
 SONATYPE_DEVELOPER_EMAIL=git@yerl.cn
-SONATYPE_DEVELOPER_ORGANIZATION_URL=http://yerl.cn
 
 #-> SCM Information
 SONATYPE_SCM_CONNECTION=scm:git:git@github.com:Poi-Son/android-promise.git
@@ -236,8 +209,8 @@ SONATYPE_SCM_URL=git@github.com:Poi-Son/android-promise.git
 
 
 # 如果想上传到私服,则将这个改成私服的地址
-# RELEASE_REPOSITORY_URL=https://oss.sonatype.org/service/local/staging/deploy/maven2
-# SNAPSHOT_REPOSITORY_URL=https://oss.sonatype.org/content/repositories/snapshots
+RELEASE_REPOSITORY_URL=https://oss.sonatype.org/service/local/staging/deploy/maven2
+SNAPSHOT_REPOSITORY_URL=https://oss.sonatype.org/content/repositories/snapshots
 ```
 
 　　另外，由于上传时需要帐号密码、密钥相关信息，如果将这些信息放在项目下的`gradle.properties`里，并上传到GitHub上的话，会造成信息泄露。因此，可以将这些信息放在*~/.gradle/gradle.properties*文件里。
@@ -247,7 +220,7 @@ SONATYPE_SCM_URL=git@github.com:Poi-Son/android-promise.git
 NEXUS_USERNAME=your nexus username
 NEXUS_PASSWORD=your nexus password
 
-# 密钥
+# 密钥配置
 signing.keyId=your pgp key id
 signing.password=your gpg password
 signing.secretKeyRingFile=your gpg secring file
@@ -255,11 +228,11 @@ signing.secretKeyRingFile=your gpg secring file
 
 > signing.secretKeyRingFile的目录一般是这样的：*~/.gnupg/secring.gpg*
 
-　　如果你的安卓库项目准备打包成JAR格式的话，还需要修改一下该项目的*build.gradle*文件。
+　　修改一下库项目的*build.gradle*文件。
 
 `build.gradle`
 
-```
+```ruby
 apply plugin: 'com.android.library'
 apply from: '../upload.gradle'
 
@@ -284,15 +257,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
     }
-
-    // 在JavaCompile之后,将源代码打包成jar包
-    libraryVariants.all { variant ->
-        def name = variant.buildType.name
-        def task = project.tasks.create "jar${name.capitalize()}", Jar
-        task.dependsOn variant.javaCompile
-        task.from variant.javaCompile.destinationDir
-        artifacts.add('archives', task);
-    }
 }
 
 afterEvaluate { project ->
@@ -308,16 +272,12 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 ```
-　　这段脚本会在JavaCompile任务执行后去执行一个打包任务，它会将JavaCompile任务生成的目录(包含.class文件)打包成JAR文件。
-
 　　在gradle运行build任务
 
 ![](../assets/blog/publish-library-to-maven-central-repository/run-build-task.png)
 
-　　如果以上配置都正确的话，你应该在该项目下的*build/libs*目录下找到6个文件。
+　　如果以上配置都正确的话，你应该在该项目下的*build/libs*目录下找到4个文件。
 
-- `xxxx-xxxx.jar` 如果你想上传的是aar包的话，这个可以没有
-- `xxxx-xxxx.jar.asc` 如果你想上传的是aar包的话，这个可以没有
 - `xxxx-xxxx-javadoc.jar`
 - `xxxx-xxxx-javadoc.jar.asc`
 - `xxxx-xxxx-sources.jar`
@@ -338,15 +298,7 @@ dependencies {
 
 　　如果你的结构与上图差不多，那么恭喜你，你快成功了。否则，回去检查一下哪一步出错了。
 
-　　Android Studio一般采用aar打包。在这个例子中，android-promise里面没有资源文件，也没有其它的东西，仅包含4个类，因此直接打包成jar更合适一点。但是在上图，我们可以看到，aar也被打包上传在这里了，因此我们需要将它删除。
-
-> 删除步骤：选中文件 --> 在右侧的选项卡里打开*Artifact* --> Delete
-
-　　删除后，刷新一下页面。
-
-![](../assets/blog/publish-library-to-maven-central-repository/nexus-staging-repositories-final-content.png)
-
-　　完成以上步骤之后，点击*Close*。这个操作会触发检验操作，系统会自动检验你上传的包是否符合条件。
+　　点击*Close*。这个操作会触发检验操作，系统会自动检验你上传的包是否符合条件。
 
 ![](../assets/blog/publish-library-to-maven-central-repository/close-staging-repositories.png)
 
@@ -361,7 +313,7 @@ dependencies {
 
 ![](../assets/blog/publish-library-to-maven-central-repository/reply-jira.png)
 
-　　等待审批人回复之后，你的库便已经同步到中央库了。
+　　等待审批人回复之后，大概10分钟到2个小时，你的库便已经同步到中央库了。
 
 ### 更新
 　　更新操作就非常简单了，只需要在*gradle.properties*文件里，将`POM_VERSION`的版本改为你想要的新版本，然后运行`gradle uploadArchives`，然后在Sonatype Nexus里面删掉*aar*相关的文件，然后*Close*、*Release*即可。过一段时间后，中央库就会同步过来了。
