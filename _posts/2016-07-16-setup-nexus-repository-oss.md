@@ -8,13 +8,13 @@ tags: Java-Web
 
 > 搭建环境为Ubuntu 16.04
 
-## 下载Nexus Repository OOS
-　　来到[官方下载地址](http://www.sonatype.com/download-oss-sonatype)。现在Nexus Repository Manager OOS有两个版本，一个是3.xx版，一个是2.xx版。这里选择2.xx版的tar.gz。将下载回来的压缩包放在桌面。
+## 下载Nexus Repository OSS
+　　来到[官方下载地址](http://www.sonatype.com/download-oss-sonatype)。现在Nexus Repository Manager OSS有两个版本，一个是3.xx版，一个是2.xx版。这里选择2.xx版的tar.gz。将下载回来的压缩包放在桌面。
 
 ## 配置Java环境
 　　Nexus Repository OSS需要依赖Java环境。如果你还没有搭建Java环境，可以在[这里](/blog/java-environment)学习。
 
-## 配置Nexus Repository OOS
+## 配置Nexus Repository OSS
 　　在*/opt*目录下新建文件夹*nexus*，然后在命令行中进入此文件夹。
 
 ```bash
@@ -48,7 +48,7 @@ $ sudo gedit /opt/nexus/nexus-2.13.0-01/bin/jsw/conf/wrapper.conf
 wrapper.java.command=/opt/java/jdk1.8.0_91/bin/java
 ```
 
-> 根据你的Java环境修改
+> 此属性值根据你的Java环境修改
 
 　　修改*/opt/nexus/nexus-2.13.0-01/bin/nexus*
 
@@ -61,10 +61,10 @@ $ sudo gedit /opt/nexus/nexus-2.13.0-01/bin/nexus
 # NOTE - This will set the user which is used to run the Wrapper as well as#  the JVM and is not useful in situations where a privileged resource or#  port needs to be allocated prior to the user being changed.RUN_AS_USER=root
 ```
 
-## 启动Nexus Repository OOS
+## 启动Nexus Repository OSS
 　　Terminal来到*/opt/nexus/nexus-2.13.0-01/bin*目录下。
 
-```bashß
+```bash
 $ cd /opt/nexus/nexus-2.13.0-01/bin
 $ ./nexus start
 ```
