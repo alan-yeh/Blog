@@ -121,7 +121,7 @@ $ sudo gem install jekyll-paginate
 
 　　然后在新的浏览器里，打开`Owner.github.io`（我的是clean-blog.github.io），你会惊喜地发现，你的博客已经布署到网络中了。至此，你也有了你的个人博客了！
 　　
-![](../assets/blog/use-jekyll-build-your-blog/github-upload-repo.jpg)
+![](../assets/blog/use-jekyll-build-your-blog/net-browser-preview.jpg)
 
 ###使用个性域名来访问你的博客
 　　博客这么个性的东西，怎么能不配上你个性的域名呢？现在域名也比较便宜。我是在[阿里云](http://wanwang.aliyun.com)上买的域名。你也可以在其它域名运营商里购买你喜欢的域名。域名购买的过程就不累述了，我们直接开始设置如何将你的个性域名指向到你的博客中。
