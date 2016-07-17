@@ -11,6 +11,7 @@ tags: Git
 - [支持域名访问](#support-domain)
 - [自动备份](#auto-backup)
 - [备份恢复](#restore-backup)
+- [清除缓存](#cache-clear)
 
 ## <a id="setup-email"></a>设置发送邮箱
 　　GitLab在使用的过程中，在很多地方都需要使用邮箱来发送通知，比如注册通知、权限变更通知、合并通知等等，因此需要为GitLab准备一个邮箱，用于发送这些通知。
@@ -18,7 +19,7 @@ tags: Git
 　　以下演示了如何配置QQ企业邮作为GitLab的发送邮箱。
 
 ```bash
-sudo gedit /etc/gitlab/gitlab.rb
+$ sudo gedit /etc/gitlab/gitlab.rb
 ```
 
 　　修改以下内容。
@@ -36,7 +37,7 @@ gitlab_rails['time_zone'] = 'UTC'
 　　修改完配置后，需要让配置生效。
 
 ```bash
-sudo gitlab-ctl reconfigure
+$ sudo gitlab-ctl reconfigure
 ```
 　　这样，GitLab就可以使用这个邮箱来发送邮件了。
 
@@ -44,7 +45,7 @@ sudo gitlab-ctl reconfigure
 　　使用域名作为访问地址，除了个性化、容易记之外，还有其它优点。在更换服务器的时候，只需要在域名提供商那边修改一下域名所指向的地址就可以了，所有的仓库都不需要改动。域名不仅仅可以指向外网地址，还可以指向内网地址（比如192.168.1.2），同样也是有效的。
 
 ```bash
-sudo gedit /etc/gitlab/gitlab.rb
+$ sudo gedit /etc/gitlab/gitlab.rb
 ```
 　　修改以下内容。
 
@@ -69,7 +70,7 @@ sudo gitlab-ctl reconfigure
 　　GitLab作为源代码管理器，需要好好保护源代码的安全。因此，一个自动、定期备份GitLab是需要的。
 
 ```bash
-sudo gedit /etc/gitlab/gitlab.rb
+$ sudo gedit /etc/gitlab/gitlab.rb
 ```
 　　修改以下内容。
 
@@ -82,13 +83,13 @@ gitlab_rails['manage_backup_path'] = true
 　　修改完配置后，需要让配置生效。
 
 ```bash
-sudo gitlab-ctl reconfigure
+$ sudo gitlab-ctl reconfigure
 ```
 　　以上设置，只是设置备份的路径和权限，并没有执行备份的动作。那么要自动备份的话，我们可以借助Linux的定期任务来完成。
 
 ```bash
 # 以下命令需要在超级管理员(su)权限下执行。在Ubuntu下，可以直接在命令行下输入su并输入密码进入此模式
-crontab -e
+$ crontab -e
 ```
 　　第一次执行的时候，会让你选择编辑器。我表示记不住vim的快捷键，所以我还是使用更简单的`nano`这个编辑器来编辑。在文件的最末端，添加以下的代码
 
@@ -107,13 +108,18 @@ crontab -e
 
 ```bash
 # 停止GitLab相关服务
-sudo gitlab-ctl stop unicorn
-sudo gitlab-ctl stop sidekiq
+$ sudo gitlab-ctl stop unicorn
+$ sudo gitlab-ctl stop sidekiq
 
 # 从备份目录中里的1459920857_gitlab_backup.tar中恢复
-gitlab-rake gitlab:backup:restore BACKUP=1459920857
+$ gitlab-rake gitlab:backup:restore BACKUP=1459920857
 
 # 启动Gitlab
-sudo gitlab-ctl start
+$ sudo gitlab-ctl start
 ```
 > 注意：GitLab的备份和恢复都需要在同一版本内进行，不同版本间的备份文件不通用。
+
+## <a id="cache-clear"></a>清除缓存
+```bash
+$ sudo gitlab-rake cache:clear
+```

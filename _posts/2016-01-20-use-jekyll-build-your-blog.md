@@ -24,7 +24,7 @@ csrutil disable
 　　将gem的sources替换成国内镜像，以提升速度。在终端中输入：
 
 ```ruby
-$ gem sources -- add https://ruby.taobao.org/ --remove https://rubygems.org/
+$ gem sources --add https://ruby.taobao.org/ --remove https://rubygems.org/
 
 $ gem sources -l
 *** CURRENT SOURCES ***
@@ -50,7 +50,7 @@ $ jekyll -v
 
 　　解压后，目录如下:
 
-　　![](http://7xqack.com1.z0.glb.clouddn.com/16-1-20/63926954.jpg)
+　　![](../assets/blog/use-jekyll-build-your-blog/folder-structure.jpg)
 
 ###本地布署博客
 　　我们需要对博客做一些初步的修改。用文本编辑器打开_config.yml，主要修改baseurl属性和markdown属性。修改如下
@@ -86,7 +86,8 @@ $ jekyll s
 ```
 　　如果很不幸，你不能启动jekyll，并报了类似以下的错误，这是因为你缺少了博客需要的一些组件。
 
-![](http://i8.tietuku.com/9b94f16ca9db8d05.jpg)
+![](../assets/blog/use-jekyll-build-your-blog/terminal-error.png)
+
 　　因此你需要安装一些组件，使用gem可以很方便地安装这些组件。
 
 ```ruby 
@@ -95,83 +96,39 @@ $ sudo gem install jekyll-paginate
 
 　　如果你的终端与我的显示似类，那么恭喜你，你已经完成了本地博客的布署了。
 
-![成功提示](http://7xqack.com1.z0.glb.clouddn.com/16-1-20/21184501.jpg)
+![成功提示](../assets/blog/use-jekyll-build-your-blog/terminal-status.jpg)
 
 　　赶快打开你的浏览器，输入[http://127.0.0.1:4000/](http://127.0.0.1:4000/)看看效果！
 
-![效果](http://7xqack.com1.z0.glb.clouddn.com/16-1-20/96031682.jpg)
+![效果](../assets/blog/use-jekyll-build-your-blog/browser-preview.jpg)
 
 ###布署到服务器
-　　仅仅只是在本地看看博客，肯定不能满足你骚动的心，你想要向世界展示你的才华，那么你需要一个服务器来运行你的博客。很幸运，github免费为你提供了这项服务。
+　　仅仅只是在本地看看博客，肯定不能满足你骚动的心，你想要向世界展示你的才华，那么你需要一个服务器来托管你的博客。很幸运，GitHub免费为你提供了这项服务。
 
-　　[点击这里](http://www.github.com)，注册你的github。
-
-![](http://7xqack.com1.z0.glb.clouddn.com/16-1-20/50236808.jpg)
-
-　　输入你的用户名、邮箱、以及密码，点击`Sign up for GitHub`。
-
-![](http://7xqack.com1.z0.glb.clouddn.com/16-1-20/61198987.jpg)
-
-　　不需要修改什么，点击`Finish sign up`，完成注册。你需要去检查一下你的邮箱，GitHub已经发送了一封确认邮件到你的邮箱中。确认完毕后，我们可以来继续我们的博客设置了。
-
-![](http://7xqack.com1.z0.glb.clouddn.com/16-1-20/95246544.jpg)
+　　[点击这里](http://www.github.com)，注册你的GitHub帐户。注册完毕后，我们可以来继续我们的博客设置了。
 
 　　点击`+ New repository`，像以下这样填写你的信息。`Repository name`有格式要求，必须是`Owner.github.io`，这个Owner就是你的用户名，在图中你也可以找到Owner，我的帐户里，clean-blog就是Owner，所以我使用clean-blog.github.io作为我的设置。Description可以随意填。
 
-![](http://7xqack.com1.z0.glb.clouddn.com/16-1-20/18757248.jpg)
+![](../assets/blog/use-jekyll-build-your-blog/github-new-repository.jpg)
 
 　　点击Create repository，创建代码仓库。
 
-![](http://7xqack.com1.z0.glb.clouddn.com/16-1-20/47248073.jpg)
+![](../assets/blog/use-jekyll-build-your-blog/github-new-repository-page.jpg)
 
-　　到这里，你其实已经拥有了github为你提供的博客空间。你需要做的就是将你的博客放到这里来。那么，应该如何将本地的博客放到github上呢？这里有一个方便的工具，代替了传统比较复杂一点的命令行代码。
+　　到这里，你其实已经拥有了GitHub为你提供的博客空间。你需要做的就是将你的博客放到这里来。将刚才的clean-blog目录下的东西提交到GitHub的仓库下。
 
-　　点击`Set up in Desktop`，然后下载GitHub的官方客户端。
-
-![](http://7xqack.com1.z0.glb.clouddn.com/16-1-20/61540387.jpg)
-
-　　填写你刚才注册的用户名和密码，点击`Sign In`。
-
-![](http://7xqack.com1.z0.glb.clouddn.com/16-1-20/92188957.jpg)
-
-　　登录成功之后，会变成这样，然后点击`continue`继续。
-
-![](http://7xqack.com1.z0.glb.clouddn.com/16-1-20/12173646.jpg)
-
-　　Git Config用于配置你提交代码时的用户名与邮件，我选择了填写注册时的邮箱。
-
-![](http://7xqack.com1.z0.glb.clouddn.com/16-1-20/99261898.jpg)
-
-　　填写完毕之后，点击`Continue`、`Done`，完成基本配置。来到了主界面。跳过导航之后，我们点击左上方的`+`，将你刚才在github上新建的Repository Clone到本地。
-
-![](http://7xqack.com1.z0.glb.clouddn.com/16-1-20/70826340.jpg)
-
-　　选择你保存的目录之后，你应该会得到一个这样的目录。
-
-![](http://7xqack.com1.z0.glb.clouddn.com/16-1-20/71183766.jpg)
-
-　　将我们刚才在本地布署的博客的所有文件复制到这个目录下。
-
-![](http://7xqack.com1.z0.glb.clouddn.com/16-1-20/18968748.jpg)
-
-　　回到GitHub Desktop(刚才下载的软件)，你会发现它变成这样了。
-
-![](http://7xqack.com1.z0.glb.clouddn.com/16-1-20/17077673.jpg)
-
-　　在`Summary`里随便填点东西，然后`Commit to master`，最后点击右上方的`Publish`(第二次以后，这里会变成Sync)。等待同步完毕后，刷新你的GitHub，然后你会发现多了很多东西。
-
-![](http://7xqack.com1.z0.glb.clouddn.com/16-1-20/12207561.jpg)
+![](../assets/blog/use-jekyll-build-your-blog/github-upload-repo.jpg)
 
 　　然后在新的浏览器里，打开`Owner.github.io`（我的是clean-blog.github.io），你会惊喜地发现，你的博客已经布署到网络中了。至此，你也有了你的个人博客了！
 　　
-![](http://7xqack.com1.z0.glb.clouddn.com/16-1-20/24758814.jpg)
+![](../assets/blog/use-jekyll-build-your-blog/github-upload-repo.jpg)
 
 ###使用个性域名来访问你的博客
 　　博客这么个性的东西，怎么能不配上你个性的域名呢？现在域名也比较便宜。我是在[阿里云](http://wanwang.aliyun.com)上买的域名。你也可以在其它域名运营商里购买你喜欢的域名。域名购买的过程就不累述了，我们直接开始设置如何将你的个性域名指向到你的博客中。
 
 　　在你的域名解析里，添加以下两条记录，指向pages.github.io的服务器。
 
-![](http://7xqack.com1.z0.glb.clouddn.com/16-1-20/10430747.jpg)
+![](../assets/blog/use-jekyll-build-your-blog/setup-domain.jpg)
 
 　　回到你的本地博客目录中，新建一个文件，名为CNAME（文件名叫CNAME，没有文件后缀），内容为你的域名。比如我的CNAME的内容如下
 
