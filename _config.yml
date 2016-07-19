@@ -31,7 +31,7 @@ destination: _site
 # 网站信息
 ########################################################
 # 首页博客标题
-name: "PoiSon's Blog"
+name: "Alan Yeh"
 # 首页图片
 cover: 'assets/images/cover1.jpg'
 # 博客Logo
@@ -46,9 +46,9 @@ address: 'http://yerl.cn'
 # 作者信息
 ########################################################
 # 作者名
-author: PoiSon
+author: Alan Yeh
 # 昵称
-nickname: PoiSon
+nickname: Alan Yeh
 # 作者简介
 bio: '简单技术控，喜欢接触各类技术'
 # 作者居住地
