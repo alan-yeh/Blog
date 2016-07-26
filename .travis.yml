@@ -1,13 +1,17 @@
-sudo: false
 language: ruby
-cache: bundler
 rvm:
-#- 2.1
 - 2.1.1
 
+branches:
+  only:
+    - master
+
+before_install:
+- git clone https://github.com/alan-yeh/CI.git
+- cp CI/jekyll/* ./
+
 install:
-  # Install Jekyll and dependencies
-  - bundle install
+- bundle install
 
 script: bundle exec rake site:deploy --quiet #--trace
 
@@ -15,11 +19,9 @@ script: bundle exec rake site:deploy --quiet #--trace
 # get Github token from your Travis CI profile page
 # gem install travis
 # GH_TOKEN from https://github.com/settings/tokens
-# travis encrypt 'GIT_NAME="YOUR_NAME" GIT_EMAIL="YOUR_EMAIL" GH_TOKEN=YOUR_TOKEN'
 env:
   global:
-    secure: "iVjKh/maEZyPO+l2X+bZF9ySdlSY7mlDI5HoLuvFYE3vPEdtT2vo+lgwtfDfYDx9B/X8J5haFU8cUV7s9eZew197Pzft2jR3s82gt3ZBvhrWJO4xzbMztaigm1r0/LS49srDvhBrSkdiruCIj9JSI93ZVun3Trh8q+U+AMK15TqF5uc2iPV0s8JCL+L8Ob/ltrio398pJLJg2BmRqXP2zFd8bDb3qqf6SerYDHMyTYrINJy7ku9FGvd5pfrgviCSs7O7h+4pS5FuWCkz8eimt7jRcnBtkT2tS5qGLm08Hgj9f2Y6yVom50QGNv6BehLpoHhSEwel1/hxEcqV1TXpkrRxBs5wWcoQg1lXfIXx5xpSho6+SuS/rsbJqK0vj+8z4AnJaMTS9eT64ASgoTQuwsXM1xDVrvTSsjdnIsB1sOxnEEe/5oQwTla8A41xnyxdRB1cYHWDOCphEK9lNcl1TVC2oTcAyr2So+nFFE9cuPNJQeVGVhIws0XLGDSMu4lMYruidOeSGB11kHtD0BYKwQFglq8Hw9+aYuJ0eBxoRSNRzu0U/uEYrliqCL6k3x3oLMLKnpYTHs2rkB3LXwPuSAfip4htqrticCMvtH5ypgzwQjGBNOGjShNJ/56aRHz7LAEeamJBgQ9biutkSu+V/ln0Xl1coHvJKq4vERjYQhg="
-branches:
-  only:
-    - master
-
+    # travis encrypt 'GH_TOKEN=YOUR_TOKEN'
+    - secure: "r42o/edBEXLOEJc8pNG98L8Zukuopk+japxPtnnZnd4CL1eF11fD3ZjFBmJKSUpRqUUH7IpNC8PgXC3qYGQuM7/ZvOW6NBig0+ObDnL/RoW9WhQiPiPl4SdYMk0U+AmvPO7l8Ox4H4zpV3uXgCWNip5XP7K0VE9erbFdmQl27Jl+b4iQcAUuzyeSBsQQ8CspNeApv5w8zfjykSwTutPVIWGgYuXk1g2ImgkCz12IEZ+5eGeP5WeM03p/38QkRVpk9IIXSUIT+LBWRBLXqHIgjt1onkMNxyGJhb52uYkmYT2hlLxFD4kjDtZVwIoS0VdP9o+SsOXtxy+2go3DOZPln7ZTTgxFUXg6cgPNDD1rZC1TAe52c2OY+kv4AcdB9IKg4r+QnScXvYJ94lCwnKbt0H1bXXkfaJlSRmKqjBG8enSjo5iJdNrnT/mmQOoc+fdyTkjBnMdJz1ryO2c8IGuLDBkDgs6OkBMApk3dt5gmdCUiT7E6FvWFAWtycg2u2cwV4DGMLe8sIt5OI5f3jaCA60JtSDzaAfHKWj9nrqib9BIxrfJR0fkASKcn7uUlsvsZsnZSpt8cHuD8lGt0qWzv1+QVnYNSze9bHvwrXo+ZQOAA9hD024Atk3sUNNtsokKgnnENelhVCkfI/zYzgLYT7bO+ZL/3U5NPpmXFrS6wnYE="
+    - GH_USER: alan-yeh
+    - GH_EMAIL: alan@yerl.cn
