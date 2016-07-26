@@ -101,4 +101,5 @@ exclude:
   - changelog.md
   - "*.Rmd"
   - .travis.yml
+  - example.travis.yml
   - LICENSE.txt
