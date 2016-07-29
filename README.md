@@ -1,5 +1,5 @@
 ## Pasper
-[![Build Status](https://travis-ci.org/Poi-Son/Pasper.svg?branch=master)](https://travis-ci.org/Poi-Son/Pasper)
+[![Build Status](https://travis-ci.org/alan-yeh/Pasper.svg?branch=master)](https://travis-ci.org/alan-yeh/Pasper)
 [![Ruby](https://img.shields.io/badge/ruby-2.1.1-blue.svg?style=flat)](https://travis-ci.org/Poi-Son/Pasper)
 [![Jekyll](https://img.shields.io/badge/jekyll-3.1.6-blue.svg?style=flat)](https://travis-ci.org/Poi-Son/Pasper)
 
