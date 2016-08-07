@@ -50,7 +50,7 @@ $ jekyll -v
 
 　　解压后，目录如下:
 
-　　![](../assets/blog/use-jekyll-build-your-blog/folder-structure.jpg)
+　　![](/assets/blog/use-jekyll-build-your-blog/folder-structure.jpg)
 
 ###本地布署博客
 　　我们需要对博客做一些初步的修改。用文本编辑器打开_config.yml，主要修改baseurl属性和markdown属性。修改如下
@@ -86,7 +86,7 @@ $ jekyll s
 ```
 　　如果很不幸，你不能启动jekyll，并报了类似以下的错误，这是因为你缺少了博客需要的一些组件。
 
-![](../assets/blog/use-jekyll-build-your-blog/terminal-error.png)
+![](/assets/blog/use-jekyll-build-your-blog/terminal-error.png)
 
 　　因此你需要安装一些组件，使用gem可以很方便地安装这些组件。
 
@@ -96,11 +96,11 @@ $ sudo gem install jekyll-paginate
 
 　　如果你的终端与我的显示似类，那么恭喜你，你已经完成了本地博客的布署了。
 
-![成功提示](../assets/blog/use-jekyll-build-your-blog/terminal-status.jpg)
+![成功提示](/assets/blog/use-jekyll-build-your-blog/terminal-status.jpg)
 
 　　赶快打开你的浏览器，输入[http://127.0.0.1:4000/](http://127.0.0.1:4000/)看看效果！
 
-![效果](../assets/blog/use-jekyll-build-your-blog/browser-preview.jpg)
+![效果](/assets/blog/use-jekyll-build-your-blog/browser-preview.jpg)
 
 ###布署到服务器
 　　仅仅只是在本地看看博客，肯定不能满足你骚动的心，你想要向世界展示你的才华，那么你需要一个服务器来托管你的博客。很幸运，GitHub免费为你提供了这项服务。
@@ -109,26 +109,26 @@ $ sudo gem install jekyll-paginate
 
 　　点击`+ New repository`，像以下这样填写你的信息。`Repository name`有格式要求，必须是`Owner.github.io`，这个Owner就是你的用户名，在图中你也可以找到Owner，我的帐户里，clean-blog就是Owner，所以我使用clean-blog.github.io作为我的设置。Description可以随意填。
 
-![](../assets/blog/use-jekyll-build-your-blog/github-new-repository.jpg)
+![](/assets/blog/use-jekyll-build-your-blog/github-new-repository.jpg)
 
 　　点击Create repository，创建代码仓库。
 
-![](../assets/blog/use-jekyll-build-your-blog/github-new-repository-page.jpg)
+![](/assets/blog/use-jekyll-build-your-blog/github-new-repository-page.jpg)
 
 　　到这里，你其实已经拥有了GitHub为你提供的博客空间。你需要做的就是将你的博客放到这里来。将刚才的clean-blog目录下的东西提交到GitHub的仓库下。
 
-![](../assets/blog/use-jekyll-build-your-blog/github-upload-repo.jpg)
+![](/assets/blog/use-jekyll-build-your-blog/github-upload-repo.jpg)
 
 　　然后在新的浏览器里，打开`Owner.github.io`（我的是clean-blog.github.io），你会惊喜地发现，你的博客已经布署到网络中了。至此，你也有了你的个人博客了！
 　　
-![](../assets/blog/use-jekyll-build-your-blog/net-browser-preview.jpg)
+![](/assets/blog/use-jekyll-build-your-blog/net-browser-preview.jpg)
 
 ###使用个性域名来访问你的博客
 　　博客这么个性的东西，怎么能不配上你个性的域名呢？现在域名也比较便宜。我是在[阿里云](http://wanwang.aliyun.com)上买的域名。你也可以在其它域名运营商里购买你喜欢的域名。域名购买的过程就不累述了，我们直接开始设置如何将你的个性域名指向到你的博客中。
 
 　　在你的域名解析里，添加以下两条记录，指向pages.github.io的服务器。
 
-![](../assets/blog/use-jekyll-build-your-blog/setup-domain.jpg)
+![](/assets/blog/use-jekyll-build-your-blog/setup-domain.jpg)
 
 　　回到你的本地博客目录中，新建一个文件，名为CNAME（文件名叫CNAME，没有文件后缀），内容为你的域名。比如我的CNAME的内容如下
 
@@ -136,3 +136,4 @@ $ sudo gem install jekyll-paginate
 yerl.cn
 ```
 　　保存后，使用`GitHub Desktop`Commit你做的修改，并Sync到你的代码仓库里。然后你就可以使用你的域名来访问你的博客了。是不是很酷？
+

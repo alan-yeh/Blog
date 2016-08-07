@@ -37,7 +37,7 @@ $ sudo apt-get install nginx
 ```
 　　浏览器打开[http://localhost](http://localhost)，看看是否安装成功。
 
-![](../assets/blog/manage-nexus-repository-oss/setup-nginx.png)
+![](/assets/blog/manage-nexus-repository-oss/setup-nginx.png)
 
 　　修改Nginx配置文件，在最后面添加以下内容。
 
@@ -65,4 +65,6 @@ server {
 $ sudo nginx -s reload
 ```
 
-![](../assets/blog/manage-nexus-repository-oss/setup-domain.png)
+![](/assets/blog/manage-nexus-repository-oss/setup-domain.png)
+
+

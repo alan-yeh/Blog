@@ -64,9 +64,10 @@ sudo gitlab-ctl reconfigure
 ### 访问GitLab
 　　打开浏览器，输入`http://localhost`，就可以访问GitLab了。
 
-![](../assets/blog/install-gitlab/change_password.png)
+![](/assets/blog/install-gitlab/change_password.png)
 
 　　第一次访问的时候，系统会让你重置密码。然后使用帐号`root`和你的新密码，就可以登录GitLab了。
 
-![](../assets/blog/install-gitlab/gitlab_home.png)
+![](/assets/blog/install-gitlab/gitlab_home.png)
 　　至此，GitLab搭建完成了。
+

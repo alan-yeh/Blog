@@ -75,4 +75,5 @@ $ ./nexus start
 ```
 　　启动成功后，可以打开[http://localhost:8081/nexus](http://localhost:8081/nexus)，查看是否正常运行。如果打开不了，可以查看*/opt/nexus/nexus-2.13.0-01/logs/wrapper.log*文件。
 
-![](../assets/blog/setup-nexus-repository-oss/setup-success.png)
+![](/assets/blog/setup-nexus-repository-oss/setup-success.png)
+

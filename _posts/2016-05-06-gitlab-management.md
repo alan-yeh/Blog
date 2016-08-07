@@ -60,7 +60,7 @@ sudo gitlab-ctl reconfigure
 ```
 
 　　去域名提供商的解析中心，将你的域名指向你的GitLab服务器地址即可。如果你的域名在阿里云上购买的，可以这么设置。
-![](../assets/blog/gitlab-management/setup-domain.png)
+![](/assets/blog/gitlab-management/setup-domain.png)
 
 > 我的GitLab服务器的内网IP是192.168.9.80
 
@@ -123,3 +123,4 @@ $ sudo gitlab-ctl start
 ```bash
 $ sudo gitlab-rake cache:clear
 ```
+
