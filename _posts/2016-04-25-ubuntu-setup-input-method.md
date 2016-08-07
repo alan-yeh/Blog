@@ -10,25 +10,25 @@ tags: Linux
 
 　　桌面右上角，打开`System Settings`，打开`Language Support`。
 
-![](/assets/blog/ubuntu-setup-input-method/system-setting-language-support.png)
+![2016-04-25-system-setting-language-support](/assets/blog/2016-04-25-system-setting-language-support.png)
 
 　　接着系统会提示你`The language support is not installed comletely`，选择Install。输入系统管理员密码之后，系统就会开始Applying changes（其实就是下载语言包等）。
-
-![](/assets/blog/ubuntu-setup-input-method/language-support-tips.png)
+　　
+![2016-04-25-language-support-tips](/assets/blog/2016-04-25-language-support-tips.png)
 
 　　等安装完了之后，不要做任何动作，直接左上角关闭Language Support选项卡。然后重新打开Language Support，就会发现非常神奇的，fcitx已经安装上了！然后把`Keyboard input method system`选上fcitx，右下角，Close。
 
-![](/assets/blog/ubuntu-setup-input-method/language-support-finished.png)
+![2016-04-25-language-support-finished](/assets/blog/2016-04-25-language-support-finished.png)
 
 　　重启系统。回到`System Settings`，选择`Text Entry`。
 
-![](/assets/blog/ubuntu-setup-input-method/system-setting-text-entry.png)
+![2016-04-25-system-setting-text-entry](/assets/blog/2016-04-25-system-setting-text-entry.png)
 
 　　搜索`Fcitx`，可以看到系统已经为你安装了一系列输入法了，选择其中一个，右下角Add就可以完成中文输入法的安装了。
 
-![](/assets/blog/ubuntu-setup-input-method/text-entry-choose-an-input-source.png)
+![2016-04-25-text-entry-choose-an-input-source](/assets/blog/2016-04-25-text-entry-choose-an-input-source.png)
 
 查看桌面右上角小企鹅，可以在下拉菜单里找到刚才选择的输入法了。
 
-![](/assets/blog/ubuntu-setup-input-method/setup-completed.png)
+![2016-04-25-setup-completed](/assets/blog/2016-04-25-setup-completed.png)
 

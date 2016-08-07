@@ -19,7 +19,7 @@ tags: Java-Web
 
 　　在[这里](https://issues.sonatype.org/secure/CreateIssue.jspa?issuetype=21&pid=10134)填写一个表单。
 
-![](/assets/blog/publish-library-to-maven-central-repository/create-new-project-ticket-sample.png)
+![2016-06-30-create-new-project-ticket-sample](/assets/blog/2016-06-30-create-new-project-ticket-sample.png)
 
 **特别注意这几项**
 
@@ -274,7 +274,7 @@ dependencies {
 ```
 　　在gradle运行build任务
 
-![](/assets/blog/publish-library-to-maven-central-repository/run-build-task.png)
+![2016-06-30-run-build-task](/assets/blog/2016-06-30-run-build-task.png)
 
 　　如果以上配置都正确的话，你应该在该项目下的*build/libs*目录下找到4个文件。
 
@@ -286,7 +286,7 @@ dependencies {
 ### 上传库
 　　生成好库之后，就需要将它上传到Sonatype Nexus里去了。上传非常简单，运行Gradle uploadArchives任务就可以了。
 
-![](/assets/blog/publish-library-to-maven-central-repository/run-upload-task.png)
+![2016-06-30-run-upload-task](/assets/blog/2016-06-30-run-upload-task.png)
 
 　　当在Android的控制台上看到`BUILD SUCCESSFUL`，我们来到[Sonatype Nexus Repository Manager](https://oss.sonatype.org/#welcome)，来看看是否上传成功了。
 
@@ -294,24 +294,24 @@ dependencies {
 
 　　登录后，在左侧菜单选择*Staging Repositories*菜单。在打开的菜单的列表里，找到一个比较特殊的仓库(其它仓库都是以*central_bundles-xxxx*命令，这个特殊的仓库一般以你的group id命名)。勾选它，并打开Content选项卡，展开所有目录。
 
-![](/assets/blog/publish-library-to-maven-central-repository/nexus-staging-repositories-content.png)
+![2016-06-30-nexus-staging-repositories-content](/assets/blog/2016-06-30-nexus-staging-repositories-content.png)
 
 　　如果你的结构与上图差不多，那么恭喜你，你快成功了。否则，回去检查一下哪一步出错了。
 
 　　点击*Close*。这个操作会触发检验操作，系统会自动检验你上传的包是否符合条件。
 
-![](/assets/blog/publish-library-to-maven-central-repository/close-staging-repositories.png)
+![2016-06-30-close-staging-repositories](/assets/blog/2016-06-30-close-staging-repositories.png)
 
 　　几秒之后，*Refresh*。再打开页面。如果你的状态下图所示，那么恭喜你，一切顺利。不然，根据错误提示，修改你上传的包。
 
-![](/assets/blog/publish-library-to-maven-central-repository/staging-repositories-status.png)
+![2016-06-30-staging-repositories-status](/assets/blog/2016-06-30-staging-repositories-status.png)
 
 　　现在，你的库已经可以发布了，点击*Release*即可。
 
 ### 回复JIRA
 　　由于是第一次发布库，因此，还需要回到JIRA的Issue，回复审批人，告诉他，你已经准备好发布你的库了，请将库同步到Maven Central Repository里。
 
-![](/assets/blog/publish-library-to-maven-central-repository/reply-jira.png)
+![2016-06-30-reply-jira](/assets/blog/2016-06-30-reply-jira.png)
 
 　　等待审批人回复之后，大概10分钟到2个小时，你的库便已经同步到中央库了。
 
