@@ -92,8 +92,7 @@ project(':service-api') {
 group = 'cn.yerl'
 version = '1.0.0-SNAPSHOT'
 ```
-
--
+---
 
 `gradle-subprojects-example/service-api/build.gradle`
 
@@ -104,8 +103,7 @@ apply plugin: 'java'
 
 sourceCompatibility = 1.6
 ```
-
--
+---
 
 `gradle-subprojects-example/service-impl/build.gradle`
 
@@ -125,8 +123,7 @@ dependencies {
     compile project(':service-api')
 }
 ```
-
--
+---
 
 `gradle-subprojects-example/web/build.gradle`
 
@@ -182,13 +179,13 @@ subprojects {
     }
 }
 ```
--
+---
 
 `gradle-subprojects-example/service-api/build.gradle`
 
 ```groovy
 ```
--
+---
 
 `gradle-subprojects-example/service-impl/build.gradle`
 
@@ -197,7 +194,7 @@ dependencies {
     compile project(':service-api')
 }
 ```
--
+---
 
 `gradle-subprojects-example/web/build.gradle`
 
