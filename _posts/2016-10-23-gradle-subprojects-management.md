@@ -23,6 +23,8 @@ tags: Java-Web
 ## settings文件
 　　settings文件声明了项目的层次结构。在默认情况下，这个文件被命名为settings.gradle，并且和根项目的build.gradle文件放在一起。
 
+`gradle-subprojects-example/settings.gradle`:
+
 ```groovy
 rootProject.name = 'gradle-subprojects-example'
 include 'service-api'
@@ -91,6 +93,8 @@ group = 'cn.yerl'
 version = '1.0.0-SNAPSHOT'
 ```
 
+--
+
 `gradle-subprojects-example/service-api/build.gradle`
 
 ```groovy
@@ -100,6 +104,8 @@ apply plugin: 'java'
 
 sourceCompatibility = 1.6
 ```
+
+--
 
 `gradle-subprojects-example/service-impl/build.gradle`
 
@@ -119,6 +125,8 @@ dependencies {
     compile project(':service-api')
 }
 ```
+
+--
 
 `gradle-subprojects-example/web/build.gradle`
 
@@ -174,11 +182,13 @@ subprojects {
     }
 }
 ```
+--
 
 `gradle-subprojects-example/service-api/build.gradle`
 
 ```groovy
 ```
+--
 
 `gradle-subprojects-example/service-impl/build.gradle`
 
@@ -187,6 +197,7 @@ dependencies {
     compile project(':service-api')
 }
 ```
+--
 
 `gradle-subprojects-example/web/build.gradle`
 
