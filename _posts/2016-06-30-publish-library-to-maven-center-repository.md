@@ -70,218 +70,70 @@ gpg --keyserver hkp://pool.sks-keyservers.net --send-keys E2F25563
 　　如果还不是很清楚，可以查看[官方指导](http://central.sonatype.org/pages/working-with-pgp-signatures.html)。
 
 ### 生成库
-　　Android Studio使用Gradle作为项目编译、库依赖工作，那么这里就以Gradle为例子，看如何生成jar包并上传到Sonatype的服务器上。
+　　Android Studio使用Gradle作为项目编译、库依赖工作，那么这里就以Gradle为例子，看如何生成aar包并上传到Sonatype的服务器上。
 
-　　将以下的内容复制到Android Studio项目下的根目录下的*upload.gradle*文件里。
-
-`upload.gradle`
-
-```ruby
-apply plugin: 'maven'
-apply plugin: 'signing'
-
-afterEvaluate { project ->
-    uploadArchives {
-        repositories {
-            mavenDeployer {
-                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-                repository(url: RELEASE_REPOSITORY_URL) {
-                    authentication(userName: NEXUS_USERNAME, password: NEXUS_PASSWORD)
-                }
-                snapshotRepository(url: SNAPSHOT_REPOSITORY_URL) {
-                    authentication(userName: NEXUS_USERNAME, password: NEXUS_PASSWORD)
-                }
-
-                pom.project {
-                    groupId POM_GROUP_ID
-                    artifactId POM_ARTIFACT_ID
-                    version POM_VERSION
-                    packaging POM_PACKAGING
-
-                    name SONATYPE_NAME
-                    description SONATYPE_DESCRIPTION
-                    url SONATYPE_URL
-
-                    licenses {
-                        license {
-                            name SONATYPE_LICENCE_NAME
-                            url SONATYPE_LICENCE_URL
-                        }
-                    }
-
-                    developers {
-                        developer {
-                            name SONATYPE_DEVELOPER_NAME
-                            email SONATYPE_DEVELOPER_EMAIL
-                        }
-                    }
-
-                    scm {
-                        connection SONATYPE_SCM_CONNECTION
-                        developerConnection SONATYPE_SCM_DEVELOPER_CONNECTION
-                        url SONATYPE_SCM_URL
-                    }
-                }
-            }
-        }
-    }
-
-    task installArchives(type: Upload) {
-        description "Installs the artifacts to the local Maven repository."
-        configuration = configurations['archives']
-        repositories {
-            mavenDeployer {
-                pom.groupId = POM_GROUP_ID
-                pom.artifactId = POM_ARTIFACT_ID
-                pom.version = POM_VERSION
-
-                repository url: "file://${System.properties['user.home']}/.m2/repository"
-            }
-        }
-    }
-
-    signing {
-        sign configurations.archives
-    }
-
-    task androidJavadocs(type: Javadoc) {
-        source = android.sourceSets.main.java.srcDirs
-        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    }
-
-    task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
-        classifier = 'javadoc'
-        from androidJavadocs.destinationDir
-    }
-
-    task androidSourcesJar(type: Jar) {
-        classifier = 'sources'
-        from android.sourceSets.main.java.srcDirs
-    }
-
-    artifacts {
-        archives androidSourcesJar
-        archives androidJavadocsJar
-    }
-}
-```
-　　这段Gradle脚本用于生成Sonatype Nexus要求的所有文件，包括
-
-- `xxxx-xxxx.jar` 库的打包文件。Android的库文件后缀名为aar。
-- `xxxx-xxxx.jar.asc` PGP签名
-- `xxxx-xxxx-javadoc.jar` 项目生成的document
-- `xxxx-xxxx-javadoc.jar.asc` PGP签名
-- `xxxx-xxxx-sources.jar` 项目的源代码
-- `xxxx-xxxx-sources.jar.asc` PGP签名
-
-　　同时，这段脚本还可以将生成的文件、pom等上传到Sonatype Nexus服务器上。
-
-　　修改*gradle.properties*，按需修改以下属性设置。
-
-`gradle.properties`
-
-```ruby
-# POM属性设置
-POM_VERSION=1.0.1
-POM_GROUP_ID=cn.yerl
-POM_ARTIFACT_ID=android-promise
-POM_PACKAGING=aar
-
-# sonatype.org要求的相关属性
-#-> Project Name, Description and URL
-SONATYPE_NAME=Android Promise Core
-SONATYPE_DESCRIPTION=A promise implementation for Android
-SONATYPE_URL=https://github.com/Poi-Son/android-promise
-
-#-> License Information
-SONATYPE_LICENCE_NAME=The Apache Software License, Version 2.0
-SONATYPE_LICENCE_URL=https://www.apache.org/licenses/LICENSE-2.0.txt
-
-#-> Developer Information
-SONATYPE_DEVELOPER_NAME=yerl
-SONATYPE_DEVELOPER_EMAIL=git@yerl.cn
-
-#-> SCM Information
-SONATYPE_SCM_CONNECTION=scm:git:git@github.com:Poi-Son/android-promise.git
-SONATYPE_SCM_DEVELOPER_CONNECTION=scm:git:git@github.com:Poi-Son/android-promise.git
-SONATYPE_SCM_URL=git@github.com:Poi-Son/android-promise.git
-
-
-# 如果想上传到私服,则将这个改成私服的地址
-RELEASE_REPOSITORY_URL=https://oss.sonatype.org/service/local/staging/deploy/maven2
-SNAPSHOT_REPOSITORY_URL=https://oss.sonatype.org/content/repositories/snapshots
-```
-
-　　另外，由于上传时需要帐号密码、密钥相关信息，如果将这些信息放在项目下的`gradle.properties`里，并上传到GitHub上的话，会造成信息泄露。因此，可以将这些信息放在*~/.gradle/gradle.properties*文件里。
-
-```ruby
-# NEXUS用户名和密码
-NEXUS_USERNAME=your nexus username
-NEXUS_PASSWORD=your nexus password
-
-# 密钥配置
-signing.keyId=your pgp key id
-signing.password=your gpg password
-signing.secretKeyRingFile=your gpg secring file
-```
-
-> signing.secretKeyRingFile的目录一般是这样的：*~/.gnupg/secring.gpg*
-
-　　修改一下库项目的*build.gradle*文件。
+　　将以下的内容复制到Android Studio项目下的*build.gradle*文件里。
 
 `build.gradle`
 
-```ruby
-apply plugin: 'com.android.library'
-apply from: '../upload.gradle'
-
-android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.0"
-
-    defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 24
+```groovy
+buildscript {
+    repositories {
+        mavenCentral()
     }
 
-    lintOptions {
-        xmlReport false
-        warningsAsErrors true
-        quiet false
-        showAll true
-        disable 'OldTargetApi'
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+    dependencies {
+        classpath 'cn.yerl.gradle:nexus-plugin:+'
     }
 }
 
-afterEvaluate { project ->
-    android.libraryVariants.all { variant ->
-        tasks.androidJavadocs.doFirst {
-            classpath += files(variant.javaCompile.classpath.files)
+apply plugin: 'nexus'
+
+nexus {
+    repository {
+        username 'your_nexus_username'
+        password 'your_nexus_password'
+    }
+
+    signatory {
+        keyId 'your_GnuPG_key_id'
+        password 'your_GnuPG_password'
+    }
+
+    pom {
+        name 'your_project_name'
+        description 'your_project_description'
+        url 'your_project_website'
+
+        scm {
+            url 'https://github.com/example-user/example-project'
+            connection 'scm:https://github.com/example-user/example-project.git'
+            developerConnection 'scm:git@github.com:example-user/example-project.git'
+        }
+
+        licenses {
+            license {
+                name 'The Apache Software License, Version 2.0'
+                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+            }
+        }
+
+        developers {
+            developer {
+                name 'Your Name'
+                email 'your@email.com'
+            }
         }
     }
 }
 
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-}
+
 ```
-　　在gradle运行build任务
+　　`nexus`插件用于生成Sonatype Nexus要求的所有文件，并上传到服务器中
 
-![2016-06-30-run-build-task](/assets/blog/2016-06-30-run-build-task.png)
+　　另外，由于上传时需要帐号密码、密钥相关信息，如果将这些信息放在项目下，并上传到GitHub上的话，会造成信息泄露。因此，可以将这些信息放在*~/.gradle/gradle.properties*文件里。
 
-　　如果以上配置都正确的话，你应该在该项目下的*build/libs*目录下找到4个文件。
 
-- `xxxx-xxxx-javadoc.jar`
-- `xxxx-xxxx-javadoc.jar.asc`
-- `xxxx-xxxx-sources.jar`
-- `xxxx-xxxx-sources.jar.asc`
 
 ### 上传库
 　　生成好库之后，就需要将它上传到Sonatype Nexus里去了。上传非常简单，运行Gradle uploadArchives任务就可以了。
