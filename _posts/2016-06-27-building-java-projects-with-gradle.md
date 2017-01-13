@@ -6,7 +6,7 @@ tags: Java-Web
 ---
 　　这篇博客会带你一起来使用Gradle构建Java工程。
 
-### 创建一个Java工程
+## 创建一个Java工程
 　　首先，新建一个Java工程，用于演示如何使用Gradle来构建它。为了让我们的精力更专注于如何使用Gralde，我们将这个工程建得非常简单。
 
 　　创建一个工程根目录，然后在`Terminal`打开它。
@@ -50,7 +50,7 @@ public class Greeter {
 }
 ```
 
-### 安装Gradle到你的工程
+## 安装Gradle到你的工程
 　　根据[上一篇博客](/blog/macos-setup-gradle)配置Gradle环境。如果你已经完成配置环境了，那可以接着做以下的步骤。
 
 　　回到项目根目录，在`Terminal`输入`gradle`。如果以上步骤都没有错的话，你会得到以下信息。
@@ -76,7 +76,7 @@ Total time: 1.428 secs
 This build could be faster, please consider using the Gradle Daemon: https://docs.gradle.org/2.14/userguide/gradle_daemon.html
 ```
 　　现在，你的项目可以使用Gradle来构建了。
-### 查看Gradle可以做什么
+## 查看Gradle可以做什么
 　　现在，Gradle已经安装好了，那么来看看Gradle可以做些什么。无论你有没有创建`build.gradle`文件，你都可以使用以下命令查看Gradle有哪些任务是可用的。
 
 ```bash
@@ -121,7 +121,7 @@ This build could be faster, please consider using the Gradle Daemon: https://doc
 ```
 　　以上列出来的任务都是可用的。但是，使用`gradle.build`可以使任务变得更有用处。可用任务列表会随着你添加插件到`build.gradle`文件而变得更多。
 
-### Build Java code
+## Build Java code
 　　在项目根目下，创建一个最简单的`build.gradle`文件，文件只有以下一行内容：
 
 ```bash
@@ -148,7 +148,7 @@ gradle build
 　　由于这个项目没有依赖任何其它库，所以`dependency_cahce`文件夹下面是空的。
 
 　　`libs`文件夹下应该有一个与项目同名的JAR文件。将来，你可以自己指定JAR包的文件和版本号。
-### 声明依赖
+## 声明依赖
 　　刚才那个`Hello World`项目是一个非常简单的项目，没有依赖任何外部库。但是，大多数应用会依赖外部库来处理命令和复杂的功能。
 
 　　继续刚才的`Hello World`项目。假设你现在需要让你的应用打印当前的日期和时间。当然，你可以使用Java原生的日期时间库来完成这个功能，但是，如果你使用`Joda Time`库来完成这个功能的话，会更有意思。
@@ -212,7 +212,7 @@ jar {
 
 　　现在，你再来运行`gradle build`命令，Gradle已经可以在Maven中央库里解决`Joda Time`的依赖问题，并编译成功。在`build/libs`文件夹里，看看是否存在`gs-gradle-0.1.0.jar`文件？
 
-### 使用Gradle Wrapper来构建项目
+## 使用Gradle Wrapper来构建项目
 　　`Gradle Wrapper`是Gradle推荐的打包方式。它包含了Windows批处理脚本、OS X/Linux的Shell脚本。这些脚本允许你在没有安装Gradle环境下使用Gradle打包你的项目。在`build.gradle`下添加以下内容。
 
 ```
@@ -329,5 +329,6 @@ task wrapper(type: Wrapper) {
 // end::wrapper[]
 ```
 
-### 总结
+## 总结
 　　恭喜你，你现在已经可以使用Gradle build文件来简单、高效地构建Java项目了。
+

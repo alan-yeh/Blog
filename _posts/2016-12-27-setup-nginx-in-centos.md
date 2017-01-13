@@ -5,11 +5,11 @@ title: CentOS安装Nginx
 tags: Linux
 ---
 
-# Linxu(CentOS)环境下安装部署nginx
+## 背景
 　　Ubuntu安装Nginx是比较简单的，使用`sudo apt-get install nginx`就可以了，但是公司经常使用CentOS，就不是特别会配置了。还是记录一下。
 
 
-# 安装依赖项
+## 安装依赖项
 
 ```
 yum install -y pcre pcre-devel  
@@ -17,7 +17,7 @@ yum install -y zlib zlib-devel
 yum install -y openssl openssl-devel  
 ```
 
-# 下载Nginx
+## 下载Nginx
 　　下载Nginx。
 
 ```

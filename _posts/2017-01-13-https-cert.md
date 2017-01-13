@@ -5,7 +5,7 @@ title: 申请并使用HTTPS
 tags: Java-Web
 ---
 
-# Https证书申请
+## Https证书申请
 　　阿里云提供免费的证书申请服务，过程比较简单，记录一下。
 
 　　打开[阿里云首页](https://wanwang.aliyun.com)。首先注册并登录。
@@ -55,7 +55,7 @@ tags: Java-Web
 
 ![2017-01-13-download](/assets/blog/2017-01-13-download.png)
 
-# 使用Https证书
+## 使用Https证书
 　　点击`下载证书for Nginx`，得到一个压缩包。解压后如下：
 
 ![2017-01-13-nginx-certs](/assets/blog/2017-01-13-nginx-certs.png)
