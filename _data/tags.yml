@@ -8,8 +8,8 @@
   description: Java-Web
 
 - name: FrontEnd
-  conver: assets/images/cover7.jpg
-  description: Javascript/HTML/CSS
+  cover: assets/images/cover7.jpg
+  description: 前端小记
 
 - name: Node.js
   cover: assets/images/cover7.jpg

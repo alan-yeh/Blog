@@ -39,24 +39,6 @@
         </footer>
     </article>
     {% endfor %}
-
-        <input type="search" autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search">
-        <button class="gh-nav-search-button" onclick="onSearch()">
-            <i class="icon-search"></i>
-            <span class="sr-only">Search</span>
-        </button>
-        <script>
-        function onSearch(){
-            $.ajax({
-                type: "GET",
-                url: "{{ site.baseurl }}/abc.json",
-                dataType: "json",
-                success: function(data){
-                    alert(data);
-                }
-            });
-        }
-        </script>
     <!-- Previous/next page links - displayed on every page -->
     {% if page.class == 'home-template' %}
         {% include pagination_post.html %}

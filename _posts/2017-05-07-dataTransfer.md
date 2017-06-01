@@ -26,3 +26,7 @@ document.getElementById('target').ondrop = function(event){
 
 　　在其它的事件(如`ondragover`、`ondragleave`等），是无法获取dataTransfer里面的值了。这是由于W3C要求对dataTransfer里的值进行保护[[参考](https://www.w3.org/TR/html51/editing.html#drag-and-drop)]。因此，如果需要在这些事件里获取数据，只能通过一个全局变量等其它方式来实现了。
 
+
+
+
+
