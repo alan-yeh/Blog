@@ -23,14 +23,14 @@ csrutil disable
 
 　　将gem的sources替换成国内镜像，以提升速度。在终端中输入：
 
-```ruby
-$ gem sources --add https://ruby.taobao.org/ --remove https://rubygems.org/
+```bash
+$ gem sources --add https://gems.ruby-china.org --remove https://rubygems.org/
 
 $ gem sources -l
 *** CURRENT SOURCES ***
 
-https://ruby.taobao.org
-#确保只有ruby.taobao.org
+https://gems.ruby-china.org
+#确保只有https://gems.ruby-china.org
 ```
 ###安装Jekyll
 　　在终端中输入：

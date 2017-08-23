@@ -26,3 +26,7 @@
 - name: Jekyll
   cover: assets/images/cover6.jpg
   description: Jekyll
+
+- name: Other
+  cover: assets/images/cover6.jpg
+  description: Other
