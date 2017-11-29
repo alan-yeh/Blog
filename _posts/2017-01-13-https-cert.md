@@ -63,8 +63,14 @@ tags: Java-Web
 　　将这两个证书文件拷贝到nginx目录下的`conf`目录下。然后编辑`nginx.conf`
 
 ```
+    # 强制使用https
+    server{        listen 80;        server_name ssl.yerl.cn;
+        rewrite ^(.*)$  https://$host$1 permanent;    }
+    # SSL配置
     server{        listen 443;        server_name ssl.yerl.cn;        ssl on;        ssl_certificate 213998963030095.pem;        ssl_certificate_key 213998963030095.key;        location /{
             # 转发到本地的Tomcat服务器            proxy_pass http://127.0.0.1:8080;            proxy_redirect default;            client_max_body_size 100m;            #root html;            #index oa.html;            proxy_set_header Host $http_host;            proxy_set_header X-Real-IP $remote_addr;            proxy_set_header X-Scheme $scheme;        }    }
 ```
 　　启动nginx之后，就可以使用`https://ssl.yerl.cn`访问服务器了。
+
+
 
