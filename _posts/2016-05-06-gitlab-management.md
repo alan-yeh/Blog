@@ -19,7 +19,7 @@ tags: Git
 　　以下演示了如何配置QQ企业邮作为GitLab的发送邮箱。
 
 ```bash
-$ sudo gedit /etc/gitlab/gitlab.rb
+$ sudo nano /etc/gitlab/gitlab.rb
 ```
 
 　　修改以下内容。
@@ -45,7 +45,7 @@ $ sudo gitlab-ctl reconfigure
 　　使用域名作为访问地址，除了个性化、容易记之外，还有其它优点。在更换服务器的时候，只需要在域名提供商那边修改一下域名所指向的地址就可以了，所有的仓库都不需要改动。域名不仅仅可以指向外网地址，还可以指向内网地址（比如192.168.1.2），同样也是有效的。
 
 ```bash
-$ sudo gedit /etc/gitlab/gitlab.rb
+$ sudo nano /etc/gitlab/gitlab.rb
 ```
 　　修改以下内容。
 
@@ -71,7 +71,7 @@ sudo gitlab-ctl reconfigure
 　　GitLab作为源代码管理器，需要好好保护源代码的安全。因此，一个自动、定期备份GitLab是需要的。
 
 ```bash
-$ sudo gedit /etc/gitlab/gitlab.rb
+$ sudo nano /etc/gitlab/gitlab.rb
 ```
 　　修改以下内容。
 
@@ -104,6 +104,47 @@ $ crontab -e
 > GitLab的备份文件文件名的格式大概是这样的`1459920857_gitlab_backup.tar`
 
 　　OK，这样子，GitLab每天都会去备份一次源代码，并且，会自动删除3天前的备份。
+
+## <a id="update"></a>升级
+　　GitLab官方会不定期升级程序，用于提供更多的功能或者修复漏洞。如果管理员在 Help 面页的版本号旁边，发现有一个红色的 `update snsp` 字样，说明系统当前有严重漏洞，容易受到黑客的攻击。管理员发现后，应该尽快升级系统。
+
+　　GitLab的升级包可以从[GitLab发包系统](https://packages.gitlab.com/gitlab/gitlab-ce)中获取。管理员根据操作系统选择合适的安装包。下面是一些常用Linux的对照。
+
+- `el/6`: CentOS 6
+- `el/7`: CentOS 7
+- `ubuntu/trusty`: Ubuntu 14.04 LTS
+- `ubuntu/bionic`: Ubuntu 18.04 LTS
+
+　　管理员下载了安装包后，将安装包复制到服务器上，通过以下命令即可快速升级系统。
+
+**CentOS**
+
+```bash
+# 停止GitLab相关服务
+$ sudo gitlab-ctl stop unicorn
+$ sudo gitlab-ctl stop sidekiq
+
+# 升级GitLab
+$ sudo rpm -U  gitlab-ce-xx.xx.xx-ce.0.el7.x86_64.rpm
+
+# 启动Gitlab
+$ sudo gitlab-ctl restart
+```
+
+**Ubuntu**
+
+```bash
+# 停止GitLab相关服务
+$ sudo gitlab-ctl stop unicorn
+$ sudo gitlab-ctl stop sidekiq
+
+# 升级GitLab
+$ sudo dpkg -i  gitlab-ce_xx.xx.xx-ce.0_amd64.deb
+
+# 启动Gitlab
+$ sudo gitlab-ctl restart
+```
+
 ## <a id="restore-backup"></a>备份恢复
 　　上面讲到了，如何定期备份。备份有几种用途，第一个，可以保障源代码的安全，第二个，当我迁移服务器的时候，我可以将备份恢复到新的服务器上，这样，新的服务器就可以正常工作了。那么，这个备份应该如何使用呢？
 
@@ -116,7 +157,7 @@ $ sudo gitlab-ctl stop sidekiq
 $ gitlab-rake gitlab:backup:restore BACKUP=1459920857
 
 # 启动Gitlab
-$ sudo gitlab-ctl start
+$ sudo gitlab-ctl restart
 ```
 > 注意：GitLab的备份和恢复都需要在同一版本内进行，不同版本间的备份文件不通用。
 
